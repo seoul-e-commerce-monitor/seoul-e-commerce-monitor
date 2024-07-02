@@ -18,10 +18,10 @@ class StoreController(private val storeService: StoreService) {
     @GetMapping("/filter/{rating}")
     fun getStoresByRating(@PathVariable rating: Int): List<Store> = storeService.getStoresByRating(rating)
 
-    @GetMapping("{status}")
+    @GetMapping("/filter/{status}")
     fun getStoresByStatus(@PathVariable status: String): List<Store> = storeService.getStoresByStatus(status)
 
-    @GetMapping("/filter/{rating}")
+    @GetMapping("/filter")
     fun getStoresByRatingAndStatus(
         @RequestParam rating: Int,
         @RequestParam status: String
