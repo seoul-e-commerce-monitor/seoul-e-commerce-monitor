@@ -28,7 +28,7 @@ class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
     ): Page<Csv> {
 
         val whereClause = BooleanBuilder()
-        businessName?.let { whereClause.and(csv.businessName.like("%$overallEvaluation%")) }
+        businessName?.let { whereClause.and(csv.businessName.like("%$businessName%")) }
         overallEvaluation?.let { whereClause.and(csv.overallEvaluation.like("%$overallEvaluation%")) }
         businessStatus?.let { whereClause.and(csv.businessStatus.like("%$businessStatus%")) }
         monitoringDate?.let { whereClause.and(csv.monitoringDate.like("%$monitoringDate%")) }
