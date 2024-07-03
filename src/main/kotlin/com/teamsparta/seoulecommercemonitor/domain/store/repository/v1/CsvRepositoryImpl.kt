@@ -9,8 +9,6 @@ import com.querydsl.core.types.dsl.PathBuilder
 import com.teamsparta.seoulecommercemonitor.domain.infra.querydsl.QueryDslSupport
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Csv
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.QCsv
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 import kotlin.contracts.contract
@@ -21,34 +19,27 @@ class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
     private val csv = QCsv.csv
 
     override fun findByStorePage(
-        pageable: Pageable,
         businessName: String?,
         overallEvaluation: String?,
         businessStatus: String?,
-        monitoringDate: String?
-    ): Page<Csv> {
+        monitoringDate: String?,
+        csvId: Long?
+    ): List<Csv> {
 
         val whereClause = BooleanBuilder()
         businessName?.let { whereClause.and(csv.businessName.like("%$businessName%")) }
         overallEvaluation?.let { whereClause.and(csv.overallEvaluation.like("%$overallEvaluation%")) }
         businessStatus?.let { whereClause.and(csv.businessStatus.like("%$businessStatus%")) }
         monitoringDate?.let { whereClause.and(csv.monitoringDate.like("%$monitoringDate%")) }
-
-        val totalCount = queryFactory
-            .select(csv.count())
-            .from(csv)
-            .where(whereClause)
-            .fetchOne() ?: 0L
+        csvId?.let { whereClause.and(csv.id.gt(it)) }
 
         val content = queryFactory
             .selectFrom(csv)
             .where(whereClause)
-            .offset(pageable.offset)
-            .limit(pageable.pageSize.toLong())
-            .orderBy(*getOrderSpecifier(pageable, csv))
+            .limit(15)
             .fetch()
 
-        return PageImpl(content, pageable, totalCount)
+        return content
     }
 
 
