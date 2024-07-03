@@ -7,4 +7,5 @@ import org.springframework.data.domain.Pageable
 interface CsvRepositoryCustom {
 
     fun findByStorePage(pageable: Pageable, businessName:String? ,overallEvaluation: String?, businessStatus: String?, monitoringDate: String?): Page<Csv>
+
 }
