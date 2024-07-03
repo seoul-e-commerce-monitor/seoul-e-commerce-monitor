@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
+import kotlin.contracts.contract
 
 @Repository
 class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
@@ -49,6 +50,7 @@ class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
 
         return PageImpl(content, pageable, totalCount)
     }
+
 
     private fun getOrderSpecifier(
         pageable: Pageable,
