@@ -4,7 +4,6 @@ import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Csv
 import org.springframework.data.domain.Pageable
 
 interface CsvRepositoryCustom {
-
     fun findByStorePage(
         businessName: String?,
         overallEvaluation: String?,
@@ -12,4 +11,3 @@ interface CsvRepositoryCustom {
         monitoringDate: String?,
         csvId: Long?
     ): List<Csv>
-}

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Slice
 import org.springframework.data.web.PageableDefault
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,11 +21,19 @@ class StoreController(private val storeService: StoreService) {
     @GetMapping("/filter")
     fun getAllStoresPage(
         @PathVariable businessName: String?,
-        @RequestParam(value ="overallEvaluation", required = false) overallEvaluation:String?,
+        @RequestParam(value = "overallEvaluation", required = false) overallEvaluation: String?,
         @RequestParam(value = "businessStatus", required = false) businessStatus: String?,
         @RequestParam(value = "monitoringDate", required = false) monitoringDate: String?,
         @RequestParam(value = "csvId", required = false) csvId: Long?
-    ): ResponseEntity<List<CsvResponse>> {
-        return ResponseEntity.ok(storeService.getAllStoresPage(businessName, overallEvaluation, businessStatus, monitoringDate, csvId))
+    ): ResponseEntity<Page<CsvResponse>> {
+        return ResponseEntity.ok(
+            storeService.getAllStoresPage(
+                pageable,
+                businessName,
+                overallEvaluation,
+                businessStatus,
+                monitoringDate
+            )
+        )
     }
 }

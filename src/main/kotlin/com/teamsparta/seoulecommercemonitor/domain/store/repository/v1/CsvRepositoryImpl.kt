@@ -11,6 +11,7 @@ import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Csv
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.QCsv
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
+import kotlin.contracts.contract
 
 @Repository
 class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
@@ -40,6 +41,7 @@ class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
 
         return content
     }
+
 
     private fun getOrderSpecifier(
         pageable: Pageable,
