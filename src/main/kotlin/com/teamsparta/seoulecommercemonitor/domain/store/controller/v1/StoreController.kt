@@ -5,6 +5,7 @@ import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Store
 import com.teamsparta.seoulecommercemonitor.domain.store.service.v1.StoreService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,7 +20,7 @@ class StoreController(private val storeService: StoreService) {
 
     @GetMapping("/filter")
     fun getAllStoresPage(
-        @PageableDefault(size = 10, sort = ["monitoringDate"]) pageable: Pageable,
+        @PageableDefault(size = 10, sort = ["monitoringDate"], direction = Sort.Direction.DESC) pageable: Pageable,
         @PathVariable businessName: String?,
         @RequestParam(value ="overallEvaluation", required = false) overallEvaluation:String?,
         @RequestParam(value = "businessStatus", required = false) businessStatus: String?,
@@ -40,6 +41,6 @@ class StoreController(private val storeService: StoreService) {
     @GetMapping("/{RatingAndStatus}")
     fun getStoresByRatingAndStatus(
         @RequestParam rating: Int,
-        @RequestParam status: String
+        @RequestParam status: String, @PathVariable RatingAndStatus: String
     ): List<Store> = storeService.getStoresByRatingAndStatus(rating, status)
 }

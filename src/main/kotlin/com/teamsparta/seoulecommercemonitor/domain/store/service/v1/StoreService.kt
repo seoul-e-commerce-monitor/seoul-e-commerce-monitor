@@ -5,6 +5,7 @@ import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Store
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.toCsvResponse
 import com.teamsparta.seoulecommercemonitor.domain.store.repository.v1.CsvRepository
 import com.teamsparta.seoulecommercemonitor.domain.store.repository.v1.StoreRepository
+import com.teamsparta.seoulecommercemonitor.exception.type.ModelNotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -25,10 +26,12 @@ class StoreService(
 
     fun getStoresByStatus(status: String): List<Store> = storeRepository.findByStatus(status)
 
-    fun getStoresByRatingAndStatus(rating: Int, status: String): List<Store> {
-        return storeRepository.findAll()
-            .filter { it.rating == rating && it.status == status }
-            .sortedByDescending { it.monitoringDate }
-            .take(10)
+    fun getStoresByRatingAndStatus(rating: Int?, status: String?): List<Store> {
+
+        if (rating == null && status == null) throw ModelNotFoundException(" is null")
+        else if (rating != null && status != null) {
+            return storeRepository.findByRatingAndStatus(rating, status)
+        }
+        return emptyList()
     }
 }
