@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface StoreRepository : JpaRepository<Store, Long> {
     fun findByRating(rating: Int): List<Store>
     fun findByStatus(status: String): List<Store>
+    fun findByRatingAndStatus(rating: Int, status: String): List<Store>
 }
