@@ -10,10 +10,7 @@ import java.time.LocalDate
 
 @Entity
 @Table(name = "stores")
-data class Store(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
-
+class Store(
     @Column(nullable = false)
     val companyName: String,
 
@@ -27,5 +24,11 @@ data class Store(
     val monitoringDate: LocalDate,
 
     @Column(nullable = false)
-    val status: String
-)
+    val status: String,
+
+    @Column(nullable = false)
+    var evaluation: String
+){
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+}
