@@ -24,6 +24,7 @@ class Store(
     val monitoringDate: LocalDate,
 
     @Column(nullable = false)
+
     val status: String,
 
     @Column(nullable = false)
@@ -32,3 +33,4 @@ class Store(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
 }
+

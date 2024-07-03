@@ -5,10 +5,12 @@ plugins {
     id("io.spring.dependency-management") version "1.1.5"
     kotlin("jvm") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
+
     kotlin("plugin.jpa") version "1.9.24"
     kotlin("plugin.noarg") version "1.9.24"
     kotlin("plugin.allopen") version "1.9.24"
     kotlin("kapt") version "1.9.24"
+
 }
 group = "org.HW5.HW5"
 version = "0.0.1-SNAPSHOT"
@@ -48,8 +50,10 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("org.postgresql:postgresql:42.5.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 
     runtimeOnly("org.postgresql:postgresql") // postgresql
 
@@ -66,6 +70,7 @@ dependencies {
 
     // WebClient
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    
 }
 
 tasks.withType<KotlinCompile> {
