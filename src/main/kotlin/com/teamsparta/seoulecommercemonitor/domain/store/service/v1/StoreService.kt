@@ -19,8 +19,7 @@ class StoreService(
         csvId: Long?
     ): List<CsvResponse> {
         if (overallEvaluation == null && businessStatus == null) throw ModelNotFoundException(" is null")
-        else if (overallEvaluation != null && businessStatus != null) throw ModelNotFoundException(" ")
-        return csvRepository.findByStorePage(businessName, overallEvaluation, businessStatus, monitoringDate, csvId)
-            .map { it.toCsvResponse() }
+        else if (overallEvaluation != null && businessStatus != null) throw ModelNotFoundException(" is null")
+        return csvRepository.findByStorePage( businessName, overallEvaluation, businessStatus, monitoringDate, csvId).map { it.toCsvResponse() }
     }
 }
