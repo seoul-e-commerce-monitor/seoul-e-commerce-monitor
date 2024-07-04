@@ -12,16 +12,14 @@ class StoreService(
 ) {
 
     fun getAllStoresPage(
-        pageable: Pageable,
         businessName: String?,
         overallEvaluation: String?,
         businessStatus: String?,
-        monitoringDate: String?
-    ): Page<CsvResponse> {
+        monitoringDate: String?,
+        csvId: Long?
+    ): List<CsvResponse> {
         if (overallEvaluation == null && businessStatus == null) throw ModelNotFoundException(" is null")
-        else if (overallEvaluation != null && businessStatus != null) {
-            csvRepository.findByStorePage(pageable, businessName, overallEvaluation, businessStatus, monitoringDate).map { it.toCsvResponse() }
-        }
-        return Page.empty()
+        else if (overallEvaluation != null && businessStatus != null) throw ModelNotFoundException(" is null")
+        return csvRepository.findByStorePage( businessName, overallEvaluation, businessStatus, monitoringDate, csvId).map { it.toCsvResponse() }
     }
 }

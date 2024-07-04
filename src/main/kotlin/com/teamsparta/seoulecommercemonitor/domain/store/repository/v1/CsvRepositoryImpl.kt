@@ -37,25 +37,14 @@ class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
             .selectFrom(csv)
             .where(whereClause)
             .limit(15)
+            .orderBy(getOrderSpecifier())
             .fetch()
 
         return content
     }
 
 
-    private fun getOrderSpecifier(
-        pageable: Pageable,
-        path: EntityPathBase<*>
-    )
-        : Array<OrderSpecifier<*>> {
-        val pathBuilder = PathBuilder(path.type, path.metadata)
-
-        return pageable.sort.toList().map { order ->
-            OrderSpecifier(
-                if (order.isAscending) Order.ASC else Order.DESC,
-                pathBuilder.get(order.property)
-                    as Expression<Comparable<*>>
-            )
-        }.toTypedArray()
+    private fun getOrderSpecifier(): OrderSpecifier<*> {
+        return OrderSpecifier(Order.DESC, csv.monitoringDate)
     }
 }
