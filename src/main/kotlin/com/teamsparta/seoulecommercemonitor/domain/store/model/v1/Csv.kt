@@ -107,7 +107,7 @@ class Csv(
     @Column(name = "monitoring_date")
     var monitoringDate: String,
 
-) {
+    ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
