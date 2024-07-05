@@ -42,6 +42,8 @@ dependencies {
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+
 
 
     implementation("io.jsonwebtoken:jjwt-api:0.12.3")

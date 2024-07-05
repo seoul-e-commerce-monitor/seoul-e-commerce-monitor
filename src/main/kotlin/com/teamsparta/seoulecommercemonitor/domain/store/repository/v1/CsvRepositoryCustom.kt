@@ -11,3 +11,4 @@ interface CsvRepositoryCustom {
         monitoringDate: String?,
         csvId: Long?
     ): List<Csv>
+}
