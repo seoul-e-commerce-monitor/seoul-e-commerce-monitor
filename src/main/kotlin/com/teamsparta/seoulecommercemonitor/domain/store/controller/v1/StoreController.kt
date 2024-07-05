@@ -1,5 +1,4 @@
 package com.teamsparta.seoulecommercemonitor.domain.store.controller.v1
-
 import com.teamsparta.seoulecommercemonitor.domain.store.dto.CsvResponse
 import com.teamsparta.seoulecommercemonitor.domain.store.service.v1.StoreService
 import org.springframework.http.MediaType
