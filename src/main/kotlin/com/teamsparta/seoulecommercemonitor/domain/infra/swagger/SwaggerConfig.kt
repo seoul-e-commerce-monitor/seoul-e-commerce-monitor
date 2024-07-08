@@ -12,8 +12,8 @@ class SwaggerConfig {
     fun openAPI(): OpenAPI = OpenAPI()
         .info(
             Info()
-                .title("CSV API")
-                .description("CSV Schema")
+                .title("STORE API")
+                .description("STORE Schema")
                 .version("1.0.0")
         )
 }

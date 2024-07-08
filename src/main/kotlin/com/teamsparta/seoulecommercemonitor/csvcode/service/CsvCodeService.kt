@@ -1,31 +1,15 @@
 package com.teamsparta.seoulecommercemonitor.csvcode.service
 
-import com.teamsparta.seoulecommercemonitor.domain.store.dto.CsvResponse
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Csv
-import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.toCsvResponse
 import com.teamsparta.seoulecommercemonitor.domain.store.repository.v1.CsvRepository
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Service
-import java.io.File
-import java.io.FileInputStream
 import java.io.InputStream
-import java.net.URL
-import java.nio.file.Paths
 
 @Service
 class CsvCodeService(
-
-    // @Value("\${csv.filepath}")
-    // val pathfile: String,
-
     private val csvRepository: CsvRepository
 ) {
-    /*
-    Step 1: 컨트롤러 쪽에서 부르는 서비스 함수 하나 제작.
-    Step 2: (Step 1의 그거에서) 파일에서 읽어오는 함수 하나 제작
-    Step 3: (Step 1의 그거에) csvRepository에 Step 2의 결과값을 저장하는 코드 구현
-     */
     private fun readCsv(inputStream: InputStream): List<Csv> {
         val reader = inputStream.bufferedReader()
         val header = reader.readLine()
@@ -74,9 +58,7 @@ class CsvCodeService(
     }
 
     fun readFromCsv() {
-        // val stores = readCsv(FileInputStream(File(pathfile)))
         val stores = readCsv(ClassPathResource("Seoul_Online_Shopping_Mall_Status.csv").inputStream)
-        // File()
         csvRepository.saveAll(stores)
     }
 }
