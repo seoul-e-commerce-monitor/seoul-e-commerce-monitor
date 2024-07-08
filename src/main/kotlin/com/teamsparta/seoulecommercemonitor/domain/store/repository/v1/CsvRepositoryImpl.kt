@@ -1,17 +1,12 @@
 package com.teamsparta.seoulecommercemonitor.domain.store.repository.v1
 
 import com.querydsl.core.BooleanBuilder
-import com.querydsl.core.types.Expression
 import com.querydsl.core.types.Order
 import com.querydsl.core.types.OrderSpecifier
-import com.querydsl.core.types.dsl.EntityPathBase
-import com.querydsl.core.types.dsl.PathBuilder
-import com.teamsparta.seoulecommercemonitor.domain.infra.querydsl.QueryDslSupport
+import com.teamsparta.seoulecommercemonitor.domain.infra.querydsl.v1.QueryDslSupport
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Csv
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.QCsv
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
-import kotlin.contracts.contract
 
 @Repository
 class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
@@ -42,7 +37,6 @@ class CsvRepositoryImpl : QueryDslSupport(), CsvRepositoryCustom {
 
         return content
     }
-
 
     private fun getOrderSpecifier(): OrderSpecifier<*> {
         return OrderSpecifier(Order.DESC, csv.monitoringDate)

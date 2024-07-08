@@ -1,4 +1,4 @@
-package com.teamsparta.seoulecommercemonitor.domain.store.dto
+package com.teamsparta.seoulecommercemonitor.domain.store.dto.v1
 
 data class CsvResponse(
     val id: Long,

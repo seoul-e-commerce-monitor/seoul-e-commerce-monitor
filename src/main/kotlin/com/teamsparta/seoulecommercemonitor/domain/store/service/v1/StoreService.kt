@@ -1,14 +1,12 @@
 package com.teamsparta.seoulecommercemonitor.domain.store.service.v1
 
-import com.teamsparta.seoulecommercemonitor.domain.store.dto.CsvResponse
+import com.teamsparta.seoulecommercemonitor.domain.store.dto.v1.CsvResponse
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Csv
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.toCsvResponse
 import com.teamsparta.seoulecommercemonitor.domain.store.repository.v1.CsvRepository
-import com.teamsparta.seoulecommercemonitor.exception.type.ModelNotFoundException
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
 import java.io.File
-
 
 @Service
 class StoreService(
@@ -25,21 +23,12 @@ class StoreService(
         csvId: Long?
 
     ): List<CsvResponse> {
-        if (overallEvaluation == null && businessStatus == null) throw ModelNotFoundException(" is null")
-        else if (overallEvaluation != null && businessStatus != null) throw ModelNotFoundException(" ")
         return csvRepository.findByStorePage(businessName, overallEvaluation, businessStatus, monitoringDate, csvId)
             .map { it.toCsvResponse() }
     }
 
-
-
-    //companion object {
-        //const val EXPECTED_FILE_COUNT = 32 //32개의 필드
-    //}
-
     fun readCsv(file: File) {
 
-        // 파일 존재 여부 확인
         if (file.exists()) {
             println("파일이 존재합니다.")
         } else {
@@ -53,13 +42,8 @@ class StoreService(
 
         lines.forEach { line ->
 
-                val regex = ",".toRegex()
-                val data = regex.split(line).map{ it.trim('\"') }
-
-            //if (data.size != EXPECTED_FILE_COUNT) {
-                //throw ModelNotFoundException("데이터 형식이 잘못되었습니다")
-            //}
-
+            val regex = ",".toRegex()
+            val data = regex.split(line).map { it.trim('\"') }
 
             val csv = Csv(
                 businessName = data[0],
@@ -95,41 +79,17 @@ class StoreService(
                 siteEstablishmentYear = data[30],
                 monitoringDate = data[31],
 
-
-
-            )
+                )
 
 
             csvList.add(csv)
             if (csvList.size == csvSize) {
                 csvRepository.saveAll(csvList)
-                count ++
+                count++
                 logger.info { "100개씩 insert ${count}번째 successful" }
 
-                    csvList.clear()
+                csvList.clear()
             }
         }
-
-        }
-//    private fun parseLocalDate(dateString: String): LocalDate? {
-//        if (dateString.isBlank() || dateString == "확인안됨") {
-//            return null //빈 문자열 또는 "확인안됨" dateString이 빈 문자열이거나 "확인안됨"인 경우에는 null을 반환
-//        }
-//
-//        return try {
-//            LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-//        } catch (e: DateTimeParseException) {
-//            logger.info {"날짜 형식이 올바르지 않습니다: $dateString"} //LocalDate.parse가 안먹힐 경우 예외처리 오류 메시지를 출력한 뒤 null을 반환
-//            null
-//        }
-//    }
-
-
-
     }
-
-
-
-
-
-
+}

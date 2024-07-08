@@ -1,6 +1,6 @@
 package com.teamsparta.seoulecommercemonitor.domain.store.model.v1
 
-import com.teamsparta.seoulecommercemonitor.domain.store.dto.CsvResponse
+import com.teamsparta.seoulecommercemonitor.domain.store.dto.v1.CsvResponse
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

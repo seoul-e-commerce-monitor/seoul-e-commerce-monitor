@@ -58,20 +58,16 @@ dependencies {
 
     runtimeOnly("org.postgresql:postgresql") // postgresql
 
-
-
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3")
     testImplementation("io.mockk:mockk:$mockkVersion")
 
-    //Dsl
     implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta")
     kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
 
-    // WebClient
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -81,7 +77,7 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<Test>().configureEach()  {
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
 
