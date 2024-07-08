@@ -7,12 +7,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-#    show-sql: true //쿼리를 출력하는 시간때문에 데이터를 읽는 속도 느려짐
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   servlet:
     multipart:
-      maxFileSize: 1000MB # 파일 하나의 최대 크기
-      maxRequestSize: 3000MB  # 한 번에 최대 업로드 가능 용량
+      maxFileSize: 1000MB
+      maxRequestSize: 3000MB
 

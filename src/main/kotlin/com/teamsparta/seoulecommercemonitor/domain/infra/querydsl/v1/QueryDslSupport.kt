@@ -1,4 +1,4 @@
-package com.teamsparta.seoulecommercemonitor.domain.infra.querydsl
+package com.teamsparta.seoulecommercemonitor.domain.infra.querydsl.v1
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager

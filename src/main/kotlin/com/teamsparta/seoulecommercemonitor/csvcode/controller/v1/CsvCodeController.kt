@@ -1,6 +1,6 @@
-package com.teamsparta.seoulecommercemonitor.csvcode.controller
+package com.teamsparta.seoulecommercemonitor.csvcode.controller.v1
 
-import com.teamsparta.seoulecommercemonitor.csvcode.service.CsvCodeService
+import com.teamsparta.seoulecommercemonitor.csvcode.service.v1.CsvCodeService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -15,5 +15,4 @@ class CsvCodeController(
     fun readFromCsv(): ResponseEntity<Unit> {
         return ResponseEntity.ok(csvCodeService.readFromCsv())
     }
-    
 }

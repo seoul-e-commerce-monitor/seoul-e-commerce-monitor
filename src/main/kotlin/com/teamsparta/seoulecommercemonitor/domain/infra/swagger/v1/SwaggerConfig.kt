@@ -1,4 +1,4 @@
-package com.teamsparta.seoulecommercemonitor.domain.infra.swagger
+package com.teamsparta.seoulecommercemonitor.domain.infra.swagger.v1
 
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info
