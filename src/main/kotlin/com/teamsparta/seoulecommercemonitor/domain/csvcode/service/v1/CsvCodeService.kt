@@ -1,4 +1,4 @@
-package com.teamsparta.seoulecommercemonitor.csvcode.service.v1
+package com.teamsparta.seoulecommercemonitor.domain.csvcode.service.v1
 
 import com.teamsparta.seoulecommercemonitor.domain.store.model.v1.Csv
 import com.teamsparta.seoulecommercemonitor.domain.store.repository.v1.CsvRepository
