@@ -1,6 +1,6 @@
-package com.teamsparta.seoulecommercemonitor.csvcode.controller.v1
+package com.teamsparta.seoulecommercemonitor.domain.csvcode.controller.v1
 
-import com.teamsparta.seoulecommercemonitor.csvcode.service.v1.CsvCodeService
+import com.teamsparta.seoulecommercemonitor.domain.csvcode.service.v1.CsvCodeService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
