@@ -2,7 +2,8 @@
 
 ## 프로젝트 설명
 
-이 프로젝트는 Kotlin과 Spring Boot를 사용하여 서울시 인터넷 쇼핑몰 현황을 모니터링하는 웹 애플리케이션입니다. 이 애플리케이션은 다양한 인터넷 쇼핑몰 사이트의 정보를 수집하고, 필터링된 데이터를 제공합니다.
+이 프로젝트는 Kotlin과 Spring Boot를 사용하여 서울시 인터넷 쇼핑몰 현황을 모니터링하는 웹 애플리케이션입니다. 이 애플리케이션은 다양한 인터넷 쇼핑몰 사이트의 정보를 수집하고, 필터링된 데이터를
+제공합니다.
 
 ## 기능
 
@@ -56,6 +57,22 @@
 <br><img alt="GitHub" src="https://img.shields.io/badge/GitHub-181717?style=flat-squre&logo=github&logoColor=white"/>
 
 <br><img alt="Slack" src="https://img.shields.io/badge/Slack-4A154B?style=flat-squre&logo=slack&logoColor=white"/>
+
+<br/>
+
+## <a href="https://www.figma.com/board/9tp3ICiW8Z5K6XbrL9iiQ9/%EC%8B%A4%EC%A0%84%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-5%EC%A1%B0?node-id=128-646&t=zWtge9vkIq5qf5xp-0"><strong>Wire frame</strong></a>
+
+<img width="2656" alt="실전프로젝트 5조 (8)" src="https://github.com/seoul-e-commerce-monitor/seoul-e-commerce-monitor/assets/161712242/75103418-4d7e-4f1d-8d63-702789d08767">
+
+<br/>
+
+<br/>
+
+## <a href="https://www.figma.com/board/9tp3ICiW8Z5K6XbrL9iiQ9/%EC%8B%A4%EC%A0%84%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-5%EC%A1%B0?node-id=128-646&t=zWtge9vkIq5qf5xp-0"><strong>ERD</strong></a>
+
+<img width="812" alt="실전프로젝트 5조 (9)" src="https://github.com/seoul-e-commerce-monitor/seoul-e-commerce-monitor/assets/161712242/41eaa210-3749-4951-8a41-25ddc6ab74fe">
+
+<br/>
 
 ## 사전 준비
 
@@ -152,6 +169,77 @@ fun getAllStoresPage(
 }
 ```
 
+### 기존의 1개씩 입력하는 코드에서 100개씩 입력하는 코드로 개선
+
+```kotlin
+    fun readCsv(file: File) {
+
+    if (file.exists()) {
+        println("파일이 존재합니다.")
+    } else {
+        println("파일이 존재하지 않습니다.")
+    }
+
+    val lines = file.readLines()
+    var count = 0
+    val csvSize = 100
+    val csvList = mutableListOf<Csv>()
+
+    lines.forEach { line ->
+
+        val regex = ",".toRegex()
+        val data = regex.split(line).map { it.trim('\"') }
+
+        val csv = Csv(
+            businessName = data[0],
+            mallName = data[1],
+            domainName = data[2],
+            phoneNumber = data[3],
+            operatorEmail = data[4],
+            salesRegistrationNumber = data[5],
+            businessType = data[6],
+            initialReportDate = (data[7]),
+            companyAddress = data[8],
+            businessStatus = data[9],
+            overallEvaluation = data[10],
+            businessInfoDisplayEvaluation = data[11],
+            withdrawalRightEvaluation = data[12],
+            paymentMethodEvaluation = data[13],
+            termsOfServiceEvaluation = data[14],
+            personalInfoSecurityEvaluation = data[15],
+            mainProducts = data[16],
+            withdrawalPossibility = data[17],
+            requiredInitialScreenItems = data[18],
+            paymentMethods = data[19],
+            complianceWithTermsOfService = data[20],
+            personalInfoHandlingPolicy = data[21],
+            requestForAdditionalPersonalInfo = data[22],
+            purchaseSafetyService = data[23],
+            securityServerInstallation = data[24],
+            certificationMark = data[25],
+            expectedDeliveryDate = data[26],
+            withdrawalShippingCostBurden = data[27],
+            customerComplaintBoardOperation = data[28],
+            membershipWithdrawalMethod = data[29],
+            siteEstablishmentYear = data[30],
+            monitoringDate = data[31],
+
+            )
+
+
+        csvList.add(csv)
+        if (csvList.size == csvSize) {
+            csvRepository.saveAll(csvList)
+            count++
+            logger.info { "100개씩 insert ${count}번째 successful" }
+
+            csvList.clear()
+        }
+    }
+}
+}
+```
+
 ### CSV 파일 업로드
 
 ```kotlin
@@ -175,6 +263,16 @@ fun readFromCsv(): ResponseEntity<Unit> {
     return ResponseEntity.ok(csvCodeService.readFromCsv())
 }
 ```
+
+## 트러블 슈팅
+
+### 필터 구현으로 필요 없는 CRUD 제거
+
+![image (7)](https://github.com/seoul-e-commerce-monitor/seoul-e-commerce-monitor/assets/161712242/fc97bf57-87f7-4dd4-a20b-64276d030e4f)
+
+### 문자열 날짜 포맷과 일치하지 않을 때 발생하는 문제
+
+![image](https://github.com/seoul-e-commerce-monitor/seoul-e-commerce-monitor/assets/161712242/2ac39714-af85-40a3-9494-be37c65da4cd)
 
 ### 환경설정<br/>
 
