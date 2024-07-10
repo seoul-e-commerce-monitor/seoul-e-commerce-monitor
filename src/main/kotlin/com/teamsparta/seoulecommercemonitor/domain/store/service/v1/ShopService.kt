@@ -39,13 +39,51 @@ class ShopService(
         shopList.forEach {
             shopRepository.save(
                 InSho(
-                    mallName = it.SHOP_NAME,
-                    domainName = it.DOMAIN_NAME,
-                    phoneNumber = it.TEL,
-                    operatorEmail = it.EMAIL
+                    businessName = it.COMPANY,
+                    overallEvaluation = it.TOT_RATINGPOINT,
+                    businessStatus = it.STAT_NM,
+                    monitoringDate = it.REG_DATE
                 )
             )
         }
         return shopList.map { it.toString() }
     }
 }
+
+// fun convertData(): List<String> {
+//     val restClient = RestClient.create()
+//     val allShopList = mutableListOf<Shop>()
+//
+//     var start = 1
+//     val end = 130000
+//     val pageSize = 1000
+//
+//     while (start <= end) {
+//         val data = restClient.get()
+//             .uri("http://openapi.seoul.go.kr:8088/564a6472576b626835334342427559/json/ServiceInternetShopInfo/$start/${start + pageSize - 1}/")
+//             .retrieve()
+//             .body<String>()
+//
+//         val shopList = JsonParser.parseString(data).asJsonObject
+//             .getAsJsonObject("ServiceInternetShopInfo")
+//             .getAsJsonArray("row")
+//             .map { it.asJsonObject }
+//             .map { Gson().fromJson(it, Shop::class.java) }
+//
+//         shopList.forEach {
+//             shopRepository.save(
+//                 InSho(
+//                     businessName = it.COMPANY,
+//                     overallEvaluation = it.TOT_RATINGPOINT,
+//                     businessStatus = it.STAT_NM,
+//                     monitoringDate = it.REG_DATE
+//                 )
+//             )
+//         }
+//
+//         allShopList.addAll(shopList)
+//         start += pageSize
+//     }
+//
+//     return allShopList.map { it.toString() }
+// }

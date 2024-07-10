@@ -15,14 +15,14 @@ data class InSho(
     val id: Long? = null,
 
     @Column
-    val mallName: String,
+    val businessName: String,
 
     @Column
-    val domainName: String,
+    val overallEvaluation: String,
 
     @Column
-    val phoneNumber: String,
+    val businessStatus: String,
 
     @Column
-    val operatorEmail: String,
+    val monitoringDate: String,
 )
